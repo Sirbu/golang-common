@@ -60,7 +60,7 @@ func (d *Default) Insert(data interface{}) error {
 }
 
 // InsertOrUpdate inserts or update document if exists
-func (d *Default) InsertOrUpdate(id interface{}, data interface{}) (*mgo.ChangeInfo, error) {
+func (d *Default) InsertOrUpdate(id interface{}, data interface{}) (interface{}, error) {
 	session := d.session.Clone()
 	defer session.Close()
 

@@ -11,7 +11,7 @@ type EntityTable interface {
 // EntityCreator contains a function to create new instances in the table
 type EntityCreator interface {
 	Insert(data interface{}) error
-	InsertOrUpdate(id interface{}, data interface{}) error
+	InsertOrUpdate(id interface{}, data interface{}) (interface{}, error) // interface will contain the changes upserted
 }
 
 // EntityReader allows fetching resources from the database

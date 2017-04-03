@@ -56,12 +56,13 @@ func (d *Default) Insert(data interface{}) error {
 }
 
 // InsertOrUpdate a document occording to ID presence in database
-func (d *Default) InsertOrUpdate(id interface{}, data interface{}) error {
+func (d *Default) InsertOrUpdate(id interface{}, data interface{}) (r.WriteResponse, error) {
 	_, err := r.Table(d.table).Insert(data, r.InsertOpts{Conflict: "update"}).RunWrite(d.session)
 	if err != nil {
 		if err == r.ErrEmptyResult {
 			return api.ErrNoResult
 		}
+
 		return api.NewDatabaseError(d, err, "")
 	}
 

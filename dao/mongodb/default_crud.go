@@ -60,19 +60,19 @@ func (d *Default) Insert(data interface{}) error {
 }
 
 // InsertOrUpdate inserts or update document if exists
-func (d *Default) InsertOrUpdate(id interface{}, data interface{}) error {
+func (d *Default) InsertOrUpdate(id interface{}, data interface{}) (*mgo.ChangeInfo, error) {
 	session := d.session.Clone()
 	defer session.Close()
 
-	_, err := session.DB(d.GetDBName()).C(d.GetTableName()).UpsertId(id, data)
+	resp, err := session.DB(d.GetDBName()).C(d.GetTableName()).UpsertId(id, data)
 	if err != nil {
 		if err == mgo.ErrNotFound {
-			return api.ErrNoResult
+			return resp, api.ErrNoResult
 		}
-		return api.NewDatabaseError(d, err, "")
+		return resp, api.NewDatabaseError(d, err, "")
 	}
 
-	return nil
+	return resp, nil
 }
 
 // Update performs an update on an existing resource according to passed data

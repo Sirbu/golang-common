@@ -56,7 +56,7 @@ func (d *Default) Insert(data interface{}) error {
 }
 
 // InsertOrUpdate a document occording to ID presence in database
-func (d *Default) InsertOrUpdate(id interface{}, data interface{}) (r.WriteResponse, error) {
+func (d *Default) InsertOrUpdate(id interface{}, data interface{}) (interface{}, error) {
 	resp, err := r.Table(d.table).Insert(data, r.InsertOpts{Conflict: "update"}).RunWrite(d.session)
 	if err != nil {
 		if err == r.ErrEmptyResult {

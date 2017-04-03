@@ -1,7 +1,7 @@
 package rethinkdb
 
 import (
-	r "gopkg.in/gorethink/gorethink.v3"
+	r "gopkg.in/gorethink/gorethink.v2"
 
 	"github.com/Sirbu/golang-common/dao/api"
 )
